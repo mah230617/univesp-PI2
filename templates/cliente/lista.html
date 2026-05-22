@@ -1,0 +1,134 @@
+{% extends "layout/index.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h5 class="mb-0">Cadastro de Clientes</h5>
+        </div>
+        <div class="text-end">
+            <a href="{{ url_for('cliente.novo_cliente') }}" class="btn btn-success btn-sm">
+                <i class="bi bi-plus-lg me-1"></i>
+                Adicionar Cliente
+            </a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success">{{ message }}</div>
+
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            Buscar
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('cliente.listar_clientes') }}" method="POST" id="clienteForm">
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Nome</label>
+                        <input type="text" name="nome" id="nome" class="form-control" value="{{ nome }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">CPF/CNPJ</label>
+                        <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control" value="{{ cpfcnpj }}">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="submit" class="btn btn-primary btn-search btn-sm">
+                        <i class="bi bi-search me-1"></i>
+                        Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card shadow-sm">
+        <div class="card-header">Lista de clientes cadastrados</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            <th>Contato</th>
+                            <th>Endereço</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for c in clientes %}
+
+                        <tr>
+                            <td>
+                                {{ c.nome }}
+                            </td>
+                            <td>
+                                {{ formatar_cpf_cnpj(c.cpfcnpj) }}
+                                <br>
+                                <small class="text-muted">
+                                    {{ formatar_data(c.data_nascimento) }}
+                                </small>
+                            </td>
+                            <td>
+                                {{ formatar_telefone(c.telefone) }}
+                                <br>
+                                <small class="text-muted">
+                                    {{ c.email }}
+                                </small>
+                            </td>
+                            <td>
+                                {{ c.enderecos[0].logradouro }},
+                                {{ c.enderecos[0].numero }}
+
+                                {% if c.enderecos[0].complemento %}
+                                - {{ c.enderecos[0].complemento }}
+                                {% endif %}
+
+                                <br>
+                                <small class="text-muted">
+                                    {{ formatar_cep(c.enderecos[0].cep) }}, {{ c.enderecos[0].bairro }}, {{
+                                    c.enderecos[0].cidade }} - {{ c.enderecos[0].estado }}
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('cliente.editar_cliente', id=c.id) }}"
+                                    class="btn btn-sm btn-warning border" title="Editar">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                {% if usuario_admin %}
+                                <a href="{{ url_for('cliente.deletar_cliente', id=c.id) }}"
+                                    class="btn btn-sm btn-danger border" title="Excluir"
+                                    onclick="return confirm('Deseja excluir?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/documento.js') }}"></script>
+<script src="{{ url_for('static', filename='js/masks.js') }}"></script>
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

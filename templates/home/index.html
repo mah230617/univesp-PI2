@@ -1,0 +1,24 @@
+{% extends "layout/index.html" %}
+
+{% block content %}
+
+<div style="padding: 3vh 5vh;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    {% for category, message in messages %}
+
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+    
+    <h5 class="mb-0">Bem-vindo(a)!</h5>
+    <br />
+    <p>{{ hoje }}</p>
+</div>
+{% endblock %}

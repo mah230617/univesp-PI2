@@ -1,0 +1,114 @@
+{% extends "layout/index.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h5 class="mb-0">Cadastro de Usuários</h5>
+        </div>
+        <div class="text-end">
+            <a href="{{ url_for('home.index_home') }}" class="btn btn-outline-secondary btn-sm"> <i
+                    class="bi bi-arrow-left-short"></i>Voltar</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    {% for category, message in messages %}
+
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            Novo usuário
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('usuario.novo_usuario') }}" method="POST" id="usuarioForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Usuário</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i
+                                    class="bi bi-person-fill"></i></span>
+                            <input type="text" id="username" name="username" class="form-control"
+                                value="{{ username or '' }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Senha</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" id="senha" name="senha" class="form-control border-end-0" required>
+                            <span class="input-group-text bg-white border-start-0" style="cursor: pointer;"
+                                onclick="togglePassword()" required>
+                                <i id="eyeIcon" class="bi bi-eye-slash"></i>
+                            </span>
+                        </div>
+                        <small id="senha-validacao" class="text-danger"></small>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-lg me-1"></i>
+                        Adicionar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            Lista de Usuários
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Usuário</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for u in usuarios %}
+
+                        <tr>
+                            <td>
+                                {{ u.username }}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('usuario.alterar_status', id=u.id) }}" class="text-decoration-none"
+                                    title="{% if u.status %}Desativar{% else %}Ativar{% endif %}">
+                                    {% if u.status %}
+                                    <i class="bi bi-check-circle-fill text-success fs-5 status-icon"> </i> Ativo
+                                    {% else %}
+                                    <i class="bi bi-x-circle-fill text-danger fs-5 status-icon"> </i> Inativo
+                                    {% endif %}
+                                </a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/validar-senha.js') }}"></script>
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

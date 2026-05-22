@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visual Produções</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<div id="loading-overlay" class="d-none">
+    <div class="spinner-border text-light" role="status"></div>
+</div>
+
+<body class="{% if not usuario_logado %}body-login{% endif %}">
+    {% if usuario_logado %}
+
+    <nav class="sidebar">
+        <a href="{{ url_for('home.index_home') }}">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo Visual Produções">
+        </a>
+        <ul class="menu-list">
+
+            {% if usuario_admin %}
+
+            <li class="menu-link {% if 'usuario' in request.endpoint %}active{% endif %}">
+                <a href="{{ url_for('usuario.listar_usuarios') }}">
+                    <i class="bi bi-people"></i>
+                    Usuários
+                </a>
+            </li>
+
+            {% endif %}
+
+            <li class="menu-link {% if 'cliente' in request.endpoint %}active{% endif %}">
+                <a href="{{ url_for('cliente.listar_clientes') }}">
+                    <i class="bi bi-buildings"></i>
+                    Clientes
+                </a>
+            </li>
+        </ul>
+        <div class="logout">
+            <a href="{{ url_for('login.logout') }}">
+                <i class="bi bi-box-arrow-left"></i>
+                Sair
+            </a>
+        </div>
+    </nav>
+
+    {% endif %}
+
+    {% if usuario_logado %}
+
+    <header class="top-header d-flex justify-content-between align-items-center">
+
+        <h5 class="mb-0">
+            {% block titulo %}{% endblock %}
+        </h5>
+
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-square fs-4"></i>
+            <span class="small">
+                Usuário:
+                <strong>{{ usuario_logado }}</strong>
+            </span>
+        </div>
+    </header>
+
+    {% endif %}
+
+    <main class="{% if usuario_logado %}content{% else %}container-login{% endif %}">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/vanilla-masker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/alterar-icone.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</html>
