@@ -31,10 +31,10 @@ if not app.config["SQLALCHEMY_DATABASE_URI"]:
 
 db.init_app(app)
 
+app.register_blueprint(home_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(usuario_bp)
 app.register_blueprint(cliente_bp)
-app.register_blueprint(home_bp)
 
 with app.app_context():
 

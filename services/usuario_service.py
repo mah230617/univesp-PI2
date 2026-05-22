@@ -5,7 +5,7 @@ import re
 import unicodedata
 
 def obter_lista_usuarios():
-    return Usuario.query.filter(Usuario.username != 'admin').all()
+    return Usuario.query.filter(Usuario.administrador == False).all()
 
 def criar_usuario(username, senha):
     usuario = Usuario(
@@ -21,7 +21,7 @@ def alterar_status_usuario(id):
 
     usuario = Usuario.query.get_or_404(id)
 
-    if usuario.username == 'admin': return False
+    if usuario.administrador: return False
 
     usuario.status = not usuario.status
 
