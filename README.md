@@ -37,18 +37,255 @@ dados, praticando controle de versão.
 * **Ementa:** Resolução de problemas; Levantamento de requisitos; Desenvolvimento web
 com framework; HTML; CSS; Banco de Dados; Controle de Versão.
 
-### 🛠️ Tecnologias e Ferramentas
-* **Linguagem de Programação:** Python - framework flask
-* **Banco de Dados:** PostgreSQL
+---
+
+## 🛠️ Tecnologias e Ferramentas
+
+* **Linguagem de Programação:** Python 3
+* **Framework Backend:** Flask
+* **Banco de Dados:** SQLite / PostgreSQL
+* **ORM:** SQLAlchemy
+* **Frontend:** HTML5, CSS3, JavaScript e Bootstrap 5
 * **Versionamento:** Git e GitHub
+* **Gerenciamento de Dependências:** Pip (`requirements.txt`)
+* **Variáveis de Ambiente:** Python Dotenv (`.env`)
 * **Documentação:** Markdown
+* **Hospedagem / Deploy:** Render
 
 ---
 
-### 📁 Estrutura de Diretórios
-* `/static`: Arquivos de imagens e arquivo CSS.
-* `/Templates`: páginas .html .
-* `/docs`: Documentação técnica e relatórios do PI.
+## 📁 Estrutura de Diretórios
+
+```txt
+Projeto_Integrador_I/
+│── app.py
+│── requirements.txt
+│── Procfile
+│── .env
+│
+├── auth/
+│   └── Middleware de autenticação e autorização
+│
+├── database/
+│   └── Configuração da conexão com banco de dados
+│
+├── docs/
+│   └── Documentação técnica e relatórios do Projeto Integrador
+│
+├── models/
+│   └── Modelos das entidades do sistema (Usuário, Cliente, Endereço)
+│
+├── routes/
+│   └── Rotas e controladores da aplicação
+│
+├── services/
+│   └── Regras de negócio e serviços da aplicação
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── Arquivos estáticos do sistema
+│
+├── templates/
+│   └── Páginas HTML renderizadas pelo Flask (Jinja2)
+│
+└── utils/
+    └── Funções auxiliares e formatações
+```
+
+---
+
+## ⚙️ Pré-Requisitos
+
+Antes de executar o projeto localmente, é necessário possuir instalado:
+
+* ✔ **Python 3.13 ou superior**
+* ✔ **Visual Studio Code**
+* ✔ **Git**
+
+---
+
+## 💻 Instalação do Ambiente
+
+### 1️⃣ Instalar o Visual Studio Code
+
+Acesse o site oficial:
+
+https://code.visualstudio.com/
+
+Baixe e instale a versão para Windows.
+
+Durante a instalação, recomenda-se marcar:
+
+* ✔ Add to PATH
+* ✔ Open with Code
+
+---
+
+### 2️⃣ Instalar o Python
+
+Acesse:
+
+https://www.python.org/downloads/
+
+Baixe a versão mais recente do Python.
+
+Durante a instalação, marque obrigatoriamente:
+
+✔ **Add Python to PATH**
+
+Após instalar, valide no terminal:
+
+```bash
+python --version
+```
+
+Exemplo esperado:
+
+```bash
+Python 3.13.x
+```
+
+---
+
+### 3️⃣ Instalar o Git
+
+Acesse:
+
+https://git-scm.com/download/win
+
+Após instalar, valide:
+
+```bash
+git --version
+```
+
+Exemplo:
+
+```bash
+git version 2.x.x
+```
+
+---
+
+## 📥 Clonando o Projeto
+
+Abra o terminal e execute:
+
+```bash
+git clone https://github.com/mah230617/univesp-PI1.git
+```
+
+Acesse a pasta do projeto:
+
+```bash
+cd nome-do-repositorio
+```
+
+---
+
+## 🐍 Configurando Ambiente Virtual
+
+Criar ambiente virtual:
+
+```bash
+python -m venv venv
+```
+
+Ativar ambiente virtual no Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Se tudo estiver correto, aparecerá:
+
+```txt
+(venv)
+```
+
+no terminal.
+
+---
+
+## 📦 Instalando Dependências
+
+Com o ambiente virtual ativado:
+
+```bash
+pip install -r requirements.txt
+```
+
+Este comando instalará automaticamente todas as dependências necessárias.
+
+---
+
+## ⚙️ Configuração do Arquivo `.env`
+
+Criar um arquivo chamado:
+
+```txt
+.env
+```
+
+Na raiz do projeto.
+
+Exemplo:
+
+```env
+SECRET_KEY=sua-chave-secreta
+DATABASE_URL=sqlite:///database.db
+SESSION_TIMEOUT=30
+DEBUG=True
+
+ADMIN_USERNAME=projeto.admin
+ADMIN_PASSWORD=mudar@123
+```
+
+---
+
+## ▶️ Executando a Aplicação
+
+No terminal do VS Code execute:
+
+```bash
+python app.py
+```
+
+Se tudo estiver correto, será exibido:
+
+```txt
+Running on http://127.0.0.1:5000
+```
+
+---
+
+## 🌐 Acessando o Sistema
+
+Abra o navegador e acesse:
+
+```txt
+http://127.0.0.1:5000
+```
+
+---
+
+## 🔐 Login Inicial
+
+**Usuário:**
+
+```txt
+projeto.admin
+```
+
+**Senha:**
+
+```txt
+mudar@123
+```
+
+O usuário administrador é criado automaticamente no primeiro acesso.
 
 ---
 > *Este projeto faz parte da grade curricular da UNIVESP e possui fins estritamente educativos e de pesquisa.*
