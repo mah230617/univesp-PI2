@@ -1,13 +1,13 @@
-# Projeto Integrador I - Eixo de Computação (UNIVESP) - Disciplina DRP01 - Turma 06
+# Projeto Integrador 2 - Eixo de Computação (UNIVESP) - Disciplina DRP01 - Turma ????
 
-## Sistema Padronizado de Cadastro de Base de Clientes
+## NOME DO PROJETO
 
 Este repositório contém o desenvolvimento do projeto acadêmico voltado à padronização e estruturação de dados de clientes, com foco em integridade, organização e escalabilidade de informações.
 
 ---
 
 ### 🎓 Instituição
-**Universidade Virtual do Estado de São Paulo (UNIVESP)** **Disciplina:** Projeto Integrador I  
+**Universidade Virtual do Estado de São Paulo (UNIVESP)** **Disciplina:** Projeto Integrador II  
 **Eixo:** Computação  
 
 ---
