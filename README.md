@@ -37,6 +37,25 @@ O projeto visa:
 
 ---
 
+### 📋 Ementa Detalhada e Mapeamento no Código
+
+Abaixo está a especificação detalhada de cada item da ementa acadêmica e sua respectiva implementação e localização no código-fonte do projeto:
+
+| Item da Ementa | Descrição da Implementação | Localização no Código-Fonte |
+| :--- | :--- | :--- |
+| **Resolução de problemas** | Validação de regras de negócio, prevenção de duplicidades e regras de integridade de cadastro de clientes e usuários. | `services/cliente_service.py`, `services/usuario_service.py` e `utils/formatters.py` |
+| **Levantamento de requisitos** | Documentação das especificações do sistema, fluxo de telas e regras funcionais/não funcionais. | `docs/` e `README.md` |
+| **Desenvolvimento web com framework** | Aplicação Backend construída com o framework **Flask (Python)**, com arquitetura organizada em Blueprints. | `app.py` e rotas na pasta `routes/` (`home_routes.py`, `cliente_routes.py`, `usuario_routes.py`, `login_routes.py`) |
+| **HTML, CSS** | Páginas renderizadas no servidor com **HTML5** (Jinja2) e estilizadas com **CSS3** customizado e Bootstrap 5. | Templates na pasta `templates/` (`layout/index.html`, `cliente/`, `usuario/`, `acesso/`) e estilos em `static/css/style.css` |
+| **Linguagem de script** | Scripts client-side em **JavaScript** para busca automática de CEP, máscaras de campos, alternador de alto contraste, redimensionamento de fonte e widget VLibras. | `static/js/cep.js`, `static/js/acessibilidade.js`, `static/js/loading.js`, `static/js/alterar-icone.js` e `vanilla-masker.min.js` |
+| **Banco de Dados** | Banco de dados relacional (SQLite/PostgreSQL) manipulado via ORM **SQLAlchemy** para persistência dos dados. | Conexão em `database/database.py` e modelos na pasta `models/` (`usuario.py`, `cliente.py`, `endereco.py`) |
+| **Controle de Versão** | Gerenciamento de código fonte e versionamento colaborativo com **Git e GitHub**. | Repositório Git, controle de branches/commits e arquivo `.gitignore` |
+| **Nuvem** | Preparação de artefatos e variáveis de ambiente para deploy em plataforma PaaS na nuvem (**Render**). | `Procfile`, `requirements.txt` e arquivo `.env` / `.env.example` |
+| **API** | Consumo e integração de APIs REST e bibliotecas externas de serviços web: **API ViaCEP** (`https://viacep.com.br/ws/`) para consulta e preenchimento automático de endereços, **API do VLibras** (`https://vlibras.gov.br/app`), CDNs do Flatpickr e Bootstrap Icons. | `static/js/cep.js`, `templates/layout/index.html` e `templates/cliente/novo.html` |
+| **Acessibilidade** | Conformidade com **WCAG 2.1 AA / e-MAG**: atalhos leitores de tela (`aria-label`, `alt`, `skip-link`), alto contraste, zoom de fonte e widget **VLibras com a avatar Hozana**. | `templates/layout/index.html`, `static/js/acessibilidade.js` e `static/css/style.css` |
+| **Testes** | Validação automatizada de regras, criação de admin inicial na inicialização e verificações de login. | `services/startup_service.py` e `auth.py` |
+| **Análise de dados** | Organização e estruturação dos dados cadastrais para consulta, ordenação e geração de relatórios. | `services/cliente_service.py` e `models/` |
+
 ## 🛠️ Tecnologias e Ferramentas
 
 * **Linguagem de Programação:** Python 3
@@ -49,6 +68,7 @@ O projeto visa:
 * **Variáveis de Ambiente:** Python Dotenv (`.env`)
 * **Documentação:** Markdown
 * **Hospedagem / Deploy:** Render
+* **Widget de acessibilidade:** VLibras (fornecido pelo governo federal, implementado através de API externa)
 
 ---
 
