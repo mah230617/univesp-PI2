@@ -44,9 +44,6 @@ with app.app_context():
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 app.url_map.strict_slashes = False
 
 @app.context_processor
@@ -67,3 +64,6 @@ app.jinja_env.globals.update(
     formatar_cep= formatar_cep,
     formatar_data= formatar_data
 )
+
+if __name__ == '__main__':
+    app.run(debug=True)
