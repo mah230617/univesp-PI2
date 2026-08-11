@@ -16,8 +16,8 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 
 | Nome | RA | Polo | Curso |
 | :--- | :--- | :--- | :--- |
-| **André** | ??? | Polo ??? | ??? |
 | **Aline Lima da Silva** | 2233362 | Polo Itaquaquecetuba | Tecnologia da Informação |
+| **André Schiavone Nanete** | 24210889 | Polo Diadema | Tecnologia da Informação |
 | **Christofer Vagner Olivares** | 24203621 | Polo Cajamar | Engenharia da Computação |
 | **Diego Lucas de Oliveira** | 2203023 | Polo Diadema | Tecnologia da Informação |
 | **Emily Thomaz Lima** | 23217845 | Polo Jandira | Engenharia da Computação |
