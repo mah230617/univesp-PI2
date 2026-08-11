@@ -16,26 +16,24 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 
 | Nome | RA | Polo | Curso |
 | :--- | :--- | :--- | :--- |
-| **Gilmar Benedito de Souza Junior** | 1705846 | Polo Guarulhos | Ciência de Dados |
-| **Kaique Lourenço de Andrade** | 24214438 | Polo Itapevi | Tecnologia da Informação |
+| **André** | ??? | Polo ??? | ??? |
+| **Aline Lima da Silva** | 2233362 | Polo Itaquaquecetuba | Tecnologia da Informação |
+| **Christofer Vagner Olivares** | 24203621 | Polo Cajamar | Engenharia da Computação |
+| **Diego Lucas de Oliveira** | 2203023 | Polo Diadema | Tecnologia da Informação |
+| **Emily Thomaz Lima** | 23217845 | Polo Jandira | Engenharia da Computação |
 | **Larissa de Souza Aguiar** | 24206943 | Polo Embu das Artes | Ciência de Dados |
-| **Luiz Antonio Lopes Junior** | 1706120 | Polo Mogi das Cruzes | Engenharia da Computação |
+| **Luciano Carneiro da Silva** | 1702980 | Polo Carapicuiba | Engenharia da Computação |
 | **Maíra Silva Edo** | 24203688 | Polo Diadema | Ciência de Dados |
-| **Mariana dos Reis Silva** | 24210121 | Polo Diadema | Ciência de Dados |
-| **Thiago Augusto Pereira** | 1811675 | Polo Carapicuiba | Ciência de Dados |
-| **Wallace Eliziario de Souza** | 24215671 | Polo Diadema | Ciência de Dados |
 
 ---
 
 ### 🎯 Objetivo do Projeto
-Desenvolver um sistema robusto e padronizado para o cadastro de clientes, aplicando conceitos fundamentais de computação e engenharia de dados. O projeto visa:
+O projeto visa:
 * **Padronização:** Garantir que os dados inseridos sigam regras de negócio estabelecidas.
 * **Integridade:** Evitar duplicidade e inconsistências na base de dados.
 * **Prática Acadêmica:** Aplicar os conhecimentos adquiridos ao longo dos semestres do eixo de computação.
-* **Objetivo Acadêmico:** Desenvolver um software com framework web que utilize noções de banco de
-dados, praticando controle de versão.
-* **Ementa:** Resolução de problemas; Levantamento de requisitos; Desenvolvimento web
-com framework; HTML; CSS; Banco de Dados; Controle de Versão.
+* **Objetivo Acadêmico:** Desenvolver um software com framework web que utilize banco de dados, inclua script web (Javascript), nuvem, uso de API, acessibilidade, controle de versão e testes. Opcionalmente incluir análises de dados.
+* **Ementa:** Resolução de problemas; Levantamento de requisitos; Desenvolvimento web com framework; HTML, CSS; linguagem de script; Banco de Dados; Controle de Versão; Nuvem; API; Acessibilidade; Testes; Análise de dados;
 
 ---
 
@@ -174,13 +172,13 @@ git version 2.x.x
 Abra o terminal e execute:
 
 ```bash
-git clone https://github.com/mah230617/univesp-PI1.git
+git clone https://github.com/mah230617/univesp-PI2.git
 ```
 
 Acesse a pasta do projeto:
 
 ```bash
-cd nome-do-repositorio
+cd univesp-PI2
 ```
 
 ---

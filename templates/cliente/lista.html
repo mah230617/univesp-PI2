@@ -5,11 +5,11 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h5 class="mb-0">Cadastro de Clientes</h5>
+            <h2 class="h5 mb-0">Cadastro de Clientes</h2>
         </div>
         <div class="text-end">
             <a href="{{ url_for('cliente.novo_cliente') }}" class="btn btn-success btn-sm">
-                <i class="bi bi-plus-lg me-1"></i>
+                <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                 Adicionar Cliente
             </a>
         </div>
@@ -20,7 +20,7 @@
 
     {% for message in messages %}
 
-    <div class="alert alert-success">{{ message }}</div>
+    <div class="alert alert-success" role="alert">{{ message }}</div>
 
     {% endfor %}
 
@@ -32,20 +32,20 @@
             Buscar
         </div>
         <div class="card-body">
-            <form action="{{ url_for('cliente.listar_clientes') }}" method="POST" id="clienteForm">
+            <form action="{{ url_for('cliente.listar_clientes') }}" method="POST" id="clienteForm" aria-label="Buscar clientes">
                 <div class="row g-2">
                     <div class="col-md-6">
-                        <label class="form-label">Nome</label>
+                        <label for="nome" class="form-label">Nome</label>
                         <input type="text" name="nome" id="nome" class="form-control" value="{{ nome }}">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">CPF/CNPJ</label>
+                        <label for="cpfcnpj" class="form-label">CPF/CNPJ</label>
                         <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control" value="{{ cpfcnpj }}">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
                     <button type="submit" class="btn btn-primary btn-search btn-sm">
-                        <i class="bi bi-search me-1"></i>
+                        <i class="bi bi-search me-1" aria-hidden="true"></i>
                         Buscar
                     </button>
                 </div>
@@ -57,14 +57,14 @@
         <div class="card-header">Lista de clientes cadastrados</div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle" aria-label="Tabela de clientes cadastrados">
                     <thead class="table-light">
                         <tr>
-                            <th>Nome</th>
-                            <th>Documento</th>
-                            <th>Contato</th>
-                            <th>Endereço</th>
-                            <th class="text-center">Ações</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Documento</th>
+                            <th scope="col">Contato</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
 
@@ -105,14 +105,18 @@
                             </td>
                             <td class="text-center">
                                 <a href="{{ url_for('cliente.editar_cliente', id=c.id) }}"
-                                    class="btn btn-sm btn-warning border" title="Editar">
-                                    <i class="bi bi-pencil-square"></i>
+                                    class="btn btn-sm btn-warning border" title="Editar {{ c.nome }}"
+                                    aria-label="Editar dados do cliente {{ c.nome }}">
+                                    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                                    <span class="visually-hidden">Editar {{ c.nome }}</span>
                                 </a>
                                 {% if usuario_admin %}
                                 <a href="{{ url_for('cliente.deletar_cliente', id=c.id) }}"
-                                    class="btn btn-sm btn-danger border" title="Excluir"
+                                    class="btn btn-sm btn-danger border" title="Excluir {{ c.nome }}"
+                                    aria-label="Excluir cliente {{ c.nome }}"
                                     onclick="return confirm('Deseja excluir?')">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash" aria-hidden="true"></i>
+                                    <span class="visually-hidden">Excluir {{ c.nome }}</span>
                                 </a>
                                 {% endif %}
                             </td>

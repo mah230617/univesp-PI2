@@ -5,11 +5,11 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h5 class="mb-0">Editar Cadastro do Cliente</h5>
+            <h2 class="h5 mb-0">Editar Cadastro do Cliente</h2>
         </div>
         <div class="text-end">
             <a href="{{ url_for('cliente.listar_clientes') }}" class="btn btn-outline-secondary btn-sm"> <i
-                    class="bi bi-arrow-left-short"></i>Voltar</a>
+                    class="bi bi-arrow-left-short" aria-hidden="true"></i>Voltar</a>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
 
     {% for category, message in messages %}
 
-    <div class="alert alert-{{ category }}">
+    <div class="alert alert-{{ category }}" role="alert">
         {{ message }}
     </div>
 
@@ -35,76 +35,76 @@
             <form action="{{ url_for('cliente.atualizar_cliente', id=cliente.id) }}" method="POST" id="form-dados">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label class="form-label">* Nome / Razão Social</label>
+                        <label for="nome" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Nome / Razão Social</label>
                         <input type="text" name="nome" id="nome" class="form-control" value="{{ cliente.nome }}"
-                            required>
+                            required aria-required="true">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">* CPF / CNPJ</label>
+                        <label for="cpfcnpj" class="form-label"><span class="text-danger" aria-hidden="true">*</span> CPF / CNPJ</label>
                         <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control"
-                            value="{{ cliente.cpfcnpj }}" required>
+                            value="{{ cliente.cpfcnpj }}" required aria-required="true">
                         <small id="cpfcnpj-retorno" class="text-danger"> </small>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">* Data de Nascimento</label>
+                        <label for="data_nascimento" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Data de Nascimento</label>
                         <input type="text" id="data_nascimento" name="data_nascimento" class="form-control"
                             placeholder="dd/mm/aaaa"
                             value="{{ cliente.data_nascimento.strftime('%d/%m/%Y') if cliente.data_nascimento else '' }}"
-                            required>
+                            required aria-required="true">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">* E-mail</label>
+                        <label for="email" class="form-label"><span class="text-danger" aria-hidden="true">*</span> E-mail</label>
                         <input type="email" name="email" id="email" class="form-control" value="{{ cliente.email }}"
-                            required>
+                            required aria-required="true">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">* Telefone</label>
+                        <label for="telefone" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Telefone</label>
                         <input type="text" name="telefone" id="telefone" class="form-control"
-                            value="{{ cliente.telefone }}" required>
+                            value="{{ cliente.telefone }}" required aria-required="true">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">* CEP</label>
+                        <label for="cep" class="form-label"><span class="text-danger" aria-hidden="true">*</span> CEP</label>
                         <input type="text" name="cep" id="cep" class="form-control"
-                            value="{{ cliente.enderecos[0].cep if cliente.enderecos else '' }}" required>
+                            value="{{ cliente.enderecos[0].cep if cliente.enderecos else '' }}" required aria-required="true">
                     </div>
                     <div class="col-md-9 mb-3">
-                        <label class="form-label">* Logradouro</label>
+                        <label for="logradouro" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Logradouro</label>
                         <input type="text" name="logradouro" id="logradouro" class="form-control"
-                            value="{{ cliente.enderecos[0].logradouro if cliente.enderecos else '' }}" required>
+                            value="{{ cliente.enderecos[0].logradouro if cliente.enderecos else '' }}" required aria-required="true">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">* Bairro</label>
+                        <label for="bairro" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Bairro</label>
                         <input type="text" name="bairro" id="bairro" class="form-control"
-                            value="{{ cliente.enderecos[0].bairro if cliente.enderecos else '' }}" required>
+                            value="{{ cliente.enderecos[0].bairro if cliente.enderecos else '' }}" required aria-required="true">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">* Número</label>
+                        <label for="numero" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Número</label>
                         <input type="text" name="numero" id="numero" class="form-control"
-                            value="{{ cliente.enderecos[0].numero if cliente.enderecos else '' }}" required>
+                            value="{{ cliente.enderecos[0].numero if cliente.enderecos else '' }}" required aria-required="true">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">Complemento</label>
+                        <label for="complemento" class="form-label">Complemento</label>
                         <input type="text" name="complemento" id="complemento" class="form-control"
                             value="{{ cliente.enderecos[0].complemento if cliente.enderecos else '' }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9 mb-3">
-                        <label class="form-label">* Cidade</label>
+                        <label for="cidade" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Cidade</label>
                         <input type="text" name="cidade" id="cidade" class="form-control"
-                            value="{{ cliente.enderecos[0].cidade if cliente.enderecos else '' }}" required>
+                            value="{{ cliente.enderecos[0].cidade if cliente.enderecos else '' }}" required aria-required="true">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="form-label">* Estado</label>
-                        <select id="estado" name="estado" class="form-select" required>
+                        <label for="estado" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Estado</label>
+                        <select id="estado" name="estado" class="form-select" required aria-required="true">
                             <option value="">Selecione</option>
                             {% for sigla, nome in estados %}
                             <option value="{{ sigla }}" {% if cliente.enderecos and cliente.enderecos[0].estado==sigla

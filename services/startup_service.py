@@ -6,7 +6,7 @@ from database.database import db
 
 def criar_usuario_admin():
 
-    username = os.getenv("ADMIN_NAME")
+    username = os.getenv("ADMIN_USERNAME") or os.getenv("ADMIN_NAME")
     senha = os.getenv("ADMIN_PASSWORD")
 
     if not username or not senha:

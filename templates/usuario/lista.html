@@ -5,11 +5,11 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h5 class="mb-0">Cadastro de Usuários</h5>
+            <h2 class="h5 mb-0">Cadastro de Usuários</h2>
         </div>
         <div class="text-end">
             <a href="{{ url_for('home.index_home') }}" class="btn btn-outline-secondary btn-sm"> <i
-                    class="bi bi-arrow-left-short"></i>Voltar</a>
+                    class="bi bi-arrow-left-short" aria-hidden="true"></i>Voltar</a>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
 
     {% for category, message in messages %}
 
-    <div class="alert alert-{{ category }}">
+    <div class="alert alert-{{ category }}" role="alert">
         {{ message }}
     </div>
 
@@ -32,33 +32,33 @@
             Novo usuário
         </div>
         <div class="card-body">
-            <form action="{{ url_for('usuario.novo_usuario') }}" method="POST" id="form-dados">
+            <form action="{{ url_for('usuario.novo_usuario') }}" method="POST" id="form-dados" aria-label="Cadastrar novo usuário">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Usuário</label>
+                        <label for="username" class="form-label">Usuário</label>
                         <div class="input-group">
                             <span class="input-group-text bg-white border-end-0"><i
-                                    class="bi bi-person-fill"></i></span>
+                                    class="bi bi-person-fill" aria-hidden="true"></i></span>
                             <input type="text" id="username" name="username" class="form-control"
-                                value="{{ username or '' }}" required>
+                                value="{{ username or '' }}" required aria-required="true">
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Senha</label>
+                        <label for="senha" class="form-label">Senha</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock-fill"></i></span>
-                            <input type="password" id="senha" name="senha" class="form-control border-end-0" required>
-                            <span class="input-group-text bg-white border-start-0" style="cursor: pointer;"
-                                onclick="togglePassword()" required>
-                                <i id="eyeIcon" class="bi bi-eye-slash"></i>
-                            </span>
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock-fill" aria-hidden="true"></i></span>
+                            <input type="password" id="senha" name="senha" class="form-control border-end-0" required aria-required="true">
+                            <button type="button" class="btn btn-outline-secondary bg-white border-start-0" id="btnToggleSenha"
+                                aria-label="Mostrar ou ocultar senha" aria-pressed="false" onclick="togglePassword()">
+                                <i id="eyeIcon" class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
                         </div>
                         <small id="senha-validacao" class="text-danger"></small>
                     </div>
                 </div>
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-lg me-1"></i>
+                        <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                         Adicionar
                     </button>
                 </div>
@@ -72,11 +72,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle" aria-label="Tabela de usuários cadastrados">
                     <thead class="table-light">
                         <tr>
-                            <th>Usuário</th>
-                            <th class="text-center">Status</th>
+                            <th scope="col">Usuário</th>
+                            <th scope="col" class="text-center">Status</th>
                         </tr>
                     </thead>
 
@@ -89,11 +89,12 @@
                             </td>
                             <td class="text-center">
                                 <a href="{{ url_for('usuario.alterar_status', id=u.id) }}" class="text-decoration-none"
-                                    title="{% if u.status %}Desativar{% else %}Ativar{% endif %}">
+                                    title="{% if u.status %}Desativar usuário {{ u.username }}{% else %}Ativar usuário {{ u.username }}{% endif %}"
+                                    aria-label="{% if u.status %}Desativar usuário {{ u.username }}{% else %}Ativar usuário {{ u.username }}{% endif %}">
                                     {% if u.status %}
-                                    <i class="bi bi-check-circle-fill text-success fs-5 status-icon"> </i> Ativo
+                                    <i class="bi bi-check-circle-fill text-success fs-5 status-icon" aria-hidden="true"> </i> Ativo
                                     {% else %}
-                                    <i class="bi bi-x-circle-fill text-danger fs-5 status-icon"> </i> Inativo
+                                    <i class="bi bi-x-circle-fill text-danger fs-5 status-icon" aria-hidden="true"> </i> Inativo
                                     {% endif %}
                                 </a>
                             </td>
