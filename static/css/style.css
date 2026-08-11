@@ -490,24 +490,77 @@ body.high-contrast .input-group-text {
     border-color: #ffff00 !important;
 }
 
-/* Barra de Acessibilidade */
-.accessibility-bar {
+/* Barra de Acessibilidade em Destaque */
+.accessibility-bar-highlight {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    background: #eef4ff;
+    border: 1.5px solid #0d6efd;
+    padding: 6px 14px;
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(13, 110, 253, 0.18);
+    transition: all 0.3s ease;
+}
+
+.accessibility-badge {
+    display: flex;
+    align-items: center;
+    color: #0d6efd;
+    font-size: 0.9rem;
+    padding-right: 8px;
+    border-right: 1px solid #cbdcfd;
+}
+
+.icon-accessibility-main {
+    font-size: 1.4rem;
+    color: #0d6efd;
+    animation: pulse-accessibility 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-accessibility {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
 }
 
 .accessibility-bar button {
-    border: 1px solid #6c757d;
-    background: #f8f9fa;
-    color: #212529;
-    padding: 3px 8px;
+    border: 1px solid #0d6efd;
+    background: #ffffff;
+    color: #0d6efd;
+    padding: 4px 10px;
     font-size: 0.85rem;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
 }
 
 .accessibility-bar button:hover {
-    background: #e2e6ea;
+    background: #0d6efd;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(13, 110, 253, 0.3);
+}
+
+/* Regras para Alto Contraste na Barra de Acessibilidade */
+body.high-contrast .accessibility-bar-highlight {
+    background: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: 0 0 12px #ffff00 !important;
+}
+
+body.high-contrast .accessibility-badge,
+body.high-contrast .icon-accessibility-main {
+    color: #ffff00 !important;
+    border-right-color: #ffff00 !important;
+}
+
+body.high-contrast .accessibility-bar button {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.high-contrast .accessibility-bar button:hover {
+    background: #ffff00 !important;
+    color: #000000 !important;
 }
