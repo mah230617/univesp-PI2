@@ -9,10 +9,18 @@ function esconderLoading() {
 document.addEventListener('DOMContentLoaded', esconderLoading);
 
 document.addEventListener("DOMContentLoaded", () => {
+    esconderLoading();
 
-    const form = document.querySelector("form");
-
-    if (form) {
-        form.addEventListener("submit", () => { mostrarLoading(); });
-    }
+    const forms = document.querySelectorAll("form");
+    forms.forEach(form => {
+        form.addEventListener("submit", (e) => {
+            setTimeout(() => {
+                if (!e.defaultPrevented) {
+                    mostrarLoading();
+                } else {
+                    esconderLoading();
+                }
+            }, 0);
+        });
+    });
 });

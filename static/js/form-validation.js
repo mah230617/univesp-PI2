@@ -55,10 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 event.preventDefault();
 
+                if (typeof esconderLoading === 'function') {
+                    esconderLoading();
+                }
+
                 return;
             }
 
-            mostrarLoading();
+            if (typeof mostrarLoading === 'function') {
+                mostrarLoading();
+            }
         });
     }
 });
