@@ -1,18 +1,22 @@
-# Projeto Integrador II - Eixo de Computação (UNIVESP) - Disciplina DRP01 - Turma 004
+# Projeto Integrador II - Eixo de Computação (UNIVESP)
+## Disciplina DRP01 - Turma 004
 
-## NOME DO PROJETO
-
-Este repositório contém o desenvolvimento do projeto acadêmico voltado à padronização e estruturação de dados de clientes, com foco em integridade, organização e escalabilidade de informações.
-
----
-
-### 🎓 Instituição
-**Universidade Virtual do Estado de São Paulo (UNIVESP)** **Disciplina:** Projeto Integrador II  
-**Eixo:** Computação  
+# Sistema com Acessibilidade de Cadastro de Clientes
+### Estudo de Caso e Solução Aplicada: Visual Produções
 
 ---
 
-### 👥 Integrantes do Grupo
+## 🎓 Identificação Acadêmica
+
+* **Instituição:** Universidade Virtual do Estado de São Paulo (UNIVESP)
+* **Disciplina:** Projeto Integrador II (DRP01 - Turma 004)
+* **Eixo:** Computação (Engenharia de Computação, Ciência de Dados, Tecnologia da Informação)
+* **Tutor Responsável:** Nicole da Costa Cerqueira
+* **Ano:** 2026
+
+---
+
+## 👥 Integrantes do Grupo
 
 | Nome | RA | Polo | Curso |
 | :--- | :--- | :--- | :--- |
@@ -27,232 +31,209 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 
 ---
 
-### 🎯 Objetivo do Projeto
-O projeto visa:
-* **Padronização:** Garantir que os dados inseridos sigam regras de negócio estabelecidas.
-* **Integridade:** Evitar duplicidade e inconsistências na base de dados.
-* **Prática Acadêmica:** Aplicar os conhecimentos adquiridos ao longo dos semestres do eixo de computação.
-* **Objetivo Acadêmico:** Desenvolver um software com framework web que utilize banco de dados, inclua script web (Javascript), nuvem, uso de API, acessibilidade, controle de versão e testes. Opcionalmente incluir análises de dados.
-* **Ementa:** Resolução de problemas; Levantamento de requisitos; Desenvolvimento web com framework; HTML, CSS; linguagem de script; Banco de Dados; Controle de Versão; Nuvem; API; Acessibilidade; Testes; Análise de dados;
+## 📖 Visão Geral e Contextualização do Problema
+
+A empresa parceira **Visual Produções** operava com fluxos cadastrais fragmentados, baseados em rotinas manuais ou interfaces legadas desprovidas de padronização, validações automáticas e, principalmente, sem qualquer recurso de acessibilidade digital. Isso acarretava inconsistências em cadastros (documentos incorretos, duplicações de registros, erros de CEP) e restringia a operação autônoma por parte de pessoas com deficiência visual, baixa visão ou pessoas surdas.
+
+Este projeto entrega uma solução web completa, robusta e inclusiva de **Gerenciamento de Clientes e Usuários (CRUD)**, garantindo:
+1. **Integridade e Consistência de Dados:** Validação matemática estrita de CPF/CNPJ, controle de duplicidades, formatação de contatos e auto-completar de logradouro via CEP.
+2. **Acessibilidade Universal:** Plena conformidade com as diretrizes internacionais da **WCAG 2.1 (Nível AA)** e do **e-MAG** (Modelo de Acessibilidade do Governo Eletrônico).
+3. **Escalabilidade e Segurança:** Arquitetura em camadas (MVC com Services e Blueprints), proteção contra injeções, controle de acessos administrativos, senhas criptografadas e persistência relacional.
 
 ---
 
-### 📋 Ementa Detalhada e Mapeamento no Código
+## 📋 Ementa do Projeto Integrador e Mapeamento no Código
 
-Abaixo está a especificação detalhada de cada item da ementa acadêmica e sua respectiva implementação e localização no código-fonte do projeto:
+A tabela a seguir demonstra a correspondência direta entre as competências da ementa acadêmica da UNIVESP e sua implementação técnica no repositório:
 
 | Item da Ementa | Descrição da Implementação | Localização no Código-Fonte |
 | :--- | :--- | :--- |
-| **Resolução de problemas** | Validação de regras de negócio, prevenção de duplicidades e regras de integridade de cadastro de clientes e usuários. | `services/cliente_service.py`, `services/usuario_service.py` e `utils/formatters.py` |
-| **Levantamento de requisitos** | Documentação das especificações do sistema, fluxo de telas e regras funcionais/não funcionais. | `docs/` e `README.md` |
-| **Desenvolvimento web com framework** | Aplicação Backend construída com o framework **Flask (Python)**, com arquitetura organizada em Blueprints. | `app.py` e rotas na pasta `routes/` (`home_routes.py`, `cliente_routes.py`, `usuario_routes.py`, `login_routes.py`) |
-| **HTML, CSS** | Páginas renderizadas no servidor com **HTML5** (Jinja2) e estilizadas com **CSS3** customizado e Bootstrap 5. | Templates na pasta `templates/` (`layout/index.html`, `cliente/`, `usuario/`, `acesso/`) e estilos em `static/css/style.css` |
-| **Linguagem de script** | Scripts client-side em **JavaScript** para busca automática de CEP, máscaras de campos, alternador de alto contraste, redimensionamento de fonte e widget VLibras. | `static/js/cep.js`, `static/js/acessibilidade.js`, `static/js/loading.js`, `static/js/alterar-icone.js` e `vanilla-masker.min.js` |
-| **Banco de Dados** | Banco de dados relacional (SQLite/PostgreSQL) manipulado via ORM **SQLAlchemy** para persistência dos dados. | Conexão em `database/database.py` e modelos na pasta `models/` (`usuario.py`, `cliente.py`, `endereco.py`) |
-| **Controle de Versão** | Gerenciamento de código fonte e versionamento colaborativo com **Git e GitHub**. | Repositório Git, controle de branches/commits e arquivo `.gitignore` |
-| **Nuvem** | Preparação de artefatos e variáveis de ambiente para deploy em plataforma PaaS na nuvem (**Render**). | `Procfile`, `requirements.txt` e arquivo `.env` / `.env.example` |
-| **API** | Consumo e integração de APIs REST e bibliotecas externas de serviços web: **API ViaCEP** (`https://viacep.com.br/ws/`) para consulta e preenchimento automático de endereços, **API do VLibras** (`https://vlibras.gov.br/app`), CDNs do Flatpickr e Bootstrap Icons. | `static/js/cep.js`, `templates/layout/index.html` e `templates/cliente/novo.html` |
-| **Acessibilidade** | Conformidade com **WCAG 2.1 AA / e-MAG**: atalhos leitores de tela (`aria-label`, `alt`, `skip-link`), alto contraste, zoom de fonte e widget **VLibras com a avatar Hozana**. | `templates/layout/index.html`, `static/js/acessibilidade.js` e `static/css/style.css` |
-| **Testes** | Validação automatizada de regras, criação de admin inicial na inicialização e verificações de login. | `services/startup_service.py` e `auth.py` |
-| **Análise de dados** | Organização e estruturação dos dados cadastrais para consulta, ordenação e geração de relatórios. | `services/cliente_service.py` e `models/` |
-
-## 🛠️ Tecnologias e Ferramentas
-
-* **Linguagem de Programação:** Python 3
-* **Framework Backend:** Flask
-* **Banco de Dados:** SQLite / PostgreSQL
-* **ORM:** SQLAlchemy
-* **Frontend:** HTML5, CSS3, JavaScript e Bootstrap 5
-* **Versionamento:** Git e GitHub
-* **Gerenciamento de Dependências:** Pip (`requirements.txt`)
-* **Variáveis de Ambiente:** Python Dotenv (`.env`)
-* **Documentação:** Markdown
-* **Hospedagem / Deploy:** Render
-* **Widget de acessibilidade:** VLibras (fornecido pelo governo federal, implementado através de API externa)
+| **Resolução de problemas** | Regras de integridade para prevenção de duplicidade (CPF/CNPJ/e-mail), validação algorítmica de documentos, normalização de dados e tratamento seguro de erros. | `services/cliente_service.py`, `services/usuario_service.py` e `utils/formatters.py` |
+| **Levantamento de requisitos** | Documentação detalhada dos fluxos funcionais, diagramas, casos de uso e especificações técnicas de acessibilidade. | Pasta `docs/` e `README.md` |
+| **Desenvolvimento web com framework** | Aplicação Backend estruturada em **Python** com o framework **Flask**, arquitetada em módulos com *Blueprints* (`login`, `home`, `cliente`, `usuario`). | `app.py`, `routes/login_routes.py`, `routes/home_routes.py`, `routes/cliente_routes.py`, `routes/usuario_routes.py` |
+| **HTML, CSS** | Telas dinâmicas desenvolvidas em **HTML5 Semântico** (Jinja2), estilizadas com **CSS3** modular, layout responsivo para desktop/mobile e **Bootstrap 5**. | `templates/layout/index.html`, `templates/acesso/`, `templates/cliente/`, `templates/usuario/` e `static/css/style.css` |
+| **Linguagem de script** | Scripts client-side em **JavaScript (Vanilla)** para máscaras dinâmicas, validação de campos, consulta assíncrona de CEP, barra de acessibilidade e controle do DOM. | `static/js/acessibilidade.js`, `static/js/cep.js`, `static/js/masks.js`, `static/js/form-validation.js`, `static/js/loading.js` e `static/js/alterar-icone.js` |
+| **Banco de Dados** | Modelagem relacional e persistência de dados gerenciada via ORM **SQLAlchemy** (compatível com SQLite para desenvolvimento local e PostgreSQL para produção). | `database/database.py` e modelos em `models/usuario.py`, `models/cliente.py`, `models/endereco.py` |
+| **Controle de Versão** | Rastreabilidade do desenvolvimento, versionamento colaborativo com Git, branch workflow e commits semânticos no GitHub. | Histórico Git, repositório remoto e arquivo `.gitignore` |
+| **Nuvem** | Parametrização para hospedagem PaaS na nuvem (**Render**), com configuração de inicialização e variáveis de ambiente desacopladas. | `Procfile`, `requirements.txt`, `.env.example` e `.env` |
+| **API** | Integração com a **API ViaCEP** (`https://viacep.com.br/ws/`) para busca assíncrona de endereços e integração com a **API do VLibras** (`https://vlibras.gov.br/app`). | `static/js/cep.js` e `templates/layout/index.html` |
+| **Acessibilidade** | Suporte integral à **WCAG 2.1 AA / e-MAG**: leitor de tela (NVDA/JAWS), atalhos de salto (`Skip Link`), atributos ARIA, modo alto contraste adaptativo e widget oficial **VLibras com avatar Hozana**. | `templates/layout/index.html`, `static/js/acessibilidade.js`, `static/css/style.css` |
+| **Testes** | Suíte completa com dezenas de testes automatizados cobrindo autenticação, permissões de admin, validações cadastrais, acessibilidade e persistência. | Pasta `tests/` (`test_login.py`, `test_cadastro_*.py`, `test_acesso_*.py`, etc.) |
+| **Análise de dados** | Estruturação e higienização dos dados para ordenação, filtragem por critérios, busca textual e exportação/relatórios cadastrais. | `services/cliente_service.py` e consultas SQLAlchemy |
 
 ---
 
-## 📁 Estrutura de Diretórios
+## ♿ Recursos de Acessibilidade Implementados (WCAG 2.1 AA / e-MAG)
+
+O sistema foi concebido sob os princípios do **Desenho Universal**, garantindo usabilidade sem barreiras:
+
+1. **Tradução em Libras (VLibras):**
+   - Inclusão do widget governamental oficial com a avatar 3D **Hozana**, permitindo a tradução de textos em português para a Língua Brasileira de Sinais em tempo real.
+2. **Modo Alto Contraste:**
+   - Alternância com um clique no botão flutuante ou cabeçalho.
+   - Esquema visual com fundo preto puro (`#000000`), tipografia e contornos em amarelo vibrante (`#ffff00`), elementos interativos em branco e *placeholders* em cinza claro legível (`#cccccc`), garantindo contraste superior a 13:1 (muito acima do índice mínimo de 4.5:1 exigido pela WCAG).
+3. **Redimensionamento Fluido de Fonte (A-, A, A+):**
+   - Escalonamento progressivo (Normal, Grande e Extra Grande) aplicado na raiz do documento (`<html>` e `<body>`), ajustando proporcionalmente todos os textos, botões, campos de entrada e tabelas do sistema com retenção de preferência via `localStorage`.
+4. **Navegação por Leitores de Tela (NVDA, JAWS, VoiceOver):**
+   - **Skip Link:** Link de salto visível no foco inicial (`Ir para o conteúdo principal`) para pular menus repetitivos.
+   - **Semântica ARIA:** Emprego consistente de `aria-label`, `aria-required`, `aria-current="page"`, `aria-live="polite"` e estados `aria-pressed`.
+   - **Eliminação de ruídos:** Ícones meramente ilustrativos demarcados com `aria-hidden="true"`.
+5. **Navegação Completa por Teclado:**
+   - Todos os botões, links e campos possuem indicadores visuais claros de foco (`focus-visible` com anel contrastante), sem armadilhas de teclado (*keyboard traps*).
+
+---
+
+## 🛠️ Tecnologias e Bibliotecas Utilizadas
+
+* **Linguagem Principal:** Python 3.10+ (compatível com 3.13)
+* **Backend Framework:** Flask 3.x
+* **ORM e Banco de Dados:** SQLAlchemy / Flask-SQLAlchemy (SQLite / PostgreSQL)
+* **Frontend:** HTML5 Semântico, CSS3 Flexbox/Grid, Bootstrap 5.3
+* **Scripting Client-side:** JavaScript Vanilla moderno (Fetch API, DOM manipulation)
+* **Bibliotecas e Componentes Externos:**
+  - **VLibras Plugin:** Tradução automatizada para Língua Brasileira de Sinais
+  - **ViaCEP API:** Webservice gratuito para consulta de CEPs
+  - **Flatpickr:** Seletor de datas acessível com suporte a pt-BR
+  - **Vanilla-Masker:** Máscaras de entrada sem dependência de jQuery
+  - **Bootstrap Icons:** Conjunto de ícones vetoriais acessíveis
+* **Gerenciamento de Ambiente:** Python `venv` e `python-dotenv`
+* **Testes Automatizados:** Suíte de testes unitários e de integração em `tests/`
+* **Hospedagem em Nuvem:** Render (plataforma PaaS)
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```txt
-Projeto_Integrador_I/
-│── app.py
-│── requirements.txt
-│── Procfile
-│── .env
+univesp-PI2/
 │
-├── auth/
-│   └── Middleware de autenticação e autorização
+├── app.py                      # Arquivo principal da aplicação e registro de rotas
+├── auth.py                     # Decorators de autenticação e proteção de sessão
+├── requirements.txt            # Dependências e pacotes Python do projeto
+├── Procfile                    # Comando de inicialização para deploy no Render
+├── .env.example                # Exemplo de configuração de variáveis de ambiente
+├── .env                        # Variáveis locais (não versionadas)
+├── README.md                   # Documentação do repositório
+├── readme2.mk                  # Documentação detalhada atualizada do projeto
 │
-├── database/
-│   └── Configuração da conexão com banco de dados
+├── database/                   # Camada de conexão e inicialização do banco
+│   └── database.py
 │
-├── docs/
-│   └── Documentação técnica e relatórios do Projeto Integrador
+├── docs/                       # Documentação técnica, relatórios e planos de ação
+│   ├── DRP01 - Plano de Ação ...
+│   └── DRP01 - Relatório Final ...
 │
-├── models/
-│   └── Modelos das entidades do sistema (Usuário, Cliente, Endereço)
+├── models/                     # Modelos de dados relacionais (SQLAlchemy)
+│   ├── usuario.py              # Entidade Usuário (autenticação e perfis)
+│   ├── cliente.py              # Entidade Cliente (dados cadastrais)
+│   └── endereco.py             # Entidade Endereço (vinculada ao cliente)
 │
-├── routes/
-│   └── Rotas e controladores da aplicação
+├── routes/                     # Controladores e rotas organizados em Blueprints
+│   ├── login_routes.py         # Autenticação, login e logout
+│   ├── home_routes.py          # Dashboard e tela inicial
+│   ├── cliente_routes.py       # CRUD completo e pesquisa de clientes
+│   └── usuario_routes.py       # Gestão administrativa de usuários
 │
-├── services/
-│   └── Regras de negócio e serviços da aplicação
+├── services/                   # Camada de lógica e regras de negócio
+│   ├── cliente_service.py      # Validações e persistência de clientes
+│   ├── usuario_service.py      # Regras de cadastro e hashing de usuários
+│   ├── startup_service.py      # Inicialização do banco e criação do admin padrão
+│   └── utils_service.py        # Utilitários de negócio
 │
-├── static/
+├── static/                     # Arquivos estáticos servidos pelo navegador
 │   ├── css/
+│   │   ├── bootstrap.min.css   # Framework CSS base
+│   │   └── style.css           # Estilos customizados, alto contraste e acessibilidade
 │   ├── js/
-│   ├── img/
-│   └── Arquivos estáticos do sistema
+│   │   ├── acessibilidade.js   # Controle de contraste, zoom de fonte e persistência
+│   │   ├── cep.js              # Integração assíncrona com API ViaCEP
+│   │   ├── masks.js            # Máscaras de CPF, CNPJ, Telefone e CEP
+│   │   ├── form-validation.js  # Validações dinâmicas de formulário
+│   │   ├── loading.js          # Feedback visual acessível de carregamento
+│   │   └── alterar-icone.js    # Controle do alternador de visibilidade de senha
+│   └── img/
+│       ├── logo.png            # Logotipo da Visual Produções
+│       └── favicon.svg         # Ícone da aplicação
 │
-├── templates/
-│   └── Páginas HTML renderizadas pelo Flask (Jinja2)
+├── templates/                  # Templates HTML renderizados com Jinja2
+│   ├── layout/
+│   │   └── index.html          # Template base com barra de acessibilidade e VLibras
+│   ├── acesso/
+│   │   └── login.html          # Tela de login com suporte a alto contraste e fontes
+│   ├── cliente/
+│   │   ├── lista.html          # Listagem paginada e busca de clientes
+│   │   ├── novo.html           # Formulário acessível de cadastro
+│   │   └── editar.html         # Formulário acessível de alteração
+│   ├── home/
+│   │   └── index.html          # Dashboard principal
+│   └── usuario/
+│       └── lista.html          # Painel de controle de usuários do sistema
 │
-└── utils/
-    └── Funções auxiliares e formatações
+├── tests/                      # Bateria de testes automatizados
+│   ├── test_login.py           # Testes de autenticação e bloqueios
+│   ├── test_cadastro_cpf_*.py  # Testes de validação de CPF
+│   ├── test_cadastro_cnpj_*.py # Testes de validação de CNPJ
+│   ├── test_mascaras.py        # Testes de formatação e máscaras
+│   ├── test_responsividade.py  # Testes de layout responsivo
+│   └── ...                     # Mais de 50 casos de teste implementados
+│
+└── utils/                      # Formatações e validadores auxiliares
+    └── formatters.py           # Algoritmos de validação de CPF/CNPJ e sanitização
 ```
 
 ---
 
-## ⚙️ Pré-Requisitos
+## ⚙️ Pré-Requisitos de Instalação
 
-Antes de executar o projeto localmente, é necessário possuir instalado:
-
-* ✔ **Python 3.13 ou superior**
-* ✔ **Visual Studio Code**
-* ✔ **Git**
-
----
-
-## 💻 Instalação do Ambiente
-
-### 1️⃣ Instalar o Visual Studio Code
-
-Acesse o site oficial:
-
-https://code.visualstudio.com/
-
-Baixe e instale a versão para Windows.
-
-Durante a instalação, recomenda-se marcar:
-
-* ✔ Add to PATH
-* ✔ Open with Code
+Para executar a aplicação localmente, certifique-se de possuir instalado:
+* **Python 3.10 ou superior** (recomendado Python 3.13)
+* **Git** para clonagem do repositório
+* **Navegador web moderno** (Chrome, Firefox, Edge)
 
 ---
 
-### 2️⃣ Instalar o Python
+## 🚀 Guia de Instalação e Execução Passo a Passo
 
-Acesse:
-
-https://www.python.org/downloads/
-
-Baixe a versão mais recente do Python.
-
-Durante a instalação, marque obrigatoriamente:
-
-✔ **Add Python to PATH**
-
-Após instalar, valide no terminal:
-
-```bash
-python --version
-```
-
-Exemplo esperado:
-
-```bash
-Python 3.13.x
-```
-
----
-
-### 3️⃣ Instalar o Git
-
-Acesse:
-
-https://git-scm.com/download/win
-
-Após instalar, valide:
-
-```bash
-git --version
-```
-
-Exemplo:
-
-```bash
-git version 2.x.x
-```
-
----
-
-## 📥 Clonando o Projeto
-
-Abra o terminal e execute:
+### 1️⃣ Clonar o Repositório
 
 ```bash
 git clone https://github.com/mah230617/univesp-PI2.git
-```
-
-Acesse a pasta do projeto:
-
-```bash
 cd univesp-PI2
 ```
 
----
+### 2️⃣ Criar e Ativar o Ambiente Virtual (`venv`)
 
-## 🐍 Configurando Ambiente Virtual
+* **No Windows (PowerShell / Prompt):**
+  ```powershell
+  python -m venv venv
+  .\venv\Scripts\activate
+  ```
 
-Criar ambiente virtual:
+* **No Linux / macOS:**
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
 
-```bash
-python -m venv venv
-```
+*(O terminal indicará `(venv)` no início da linha de comando).*
 
-Ativar ambiente virtual no Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-Se tudo estiver correto, aparecerá:
-
-```txt
-(venv)
-```
-
-no terminal.
-
----
-
-## 📦 Instalando Dependências
-
-Com o ambiente virtual ativado:
+### 3️⃣ Instalar as Dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Este comando instalará automaticamente todas as dependências necessárias.
+### 4️⃣ Configurar as Variáveis de Ambiente
 
----
+Crie um arquivo `.env` na raiz do projeto (ou copie a partir de `.env.example`):
 
-## ⚙️ Configuração do Arquivo `.env`
-
-Criar um arquivo chamado:
-
-```txt
-.env
+```bash
+cp .env.example .env
 ```
 
-Na raiz do projeto.
-
-Exemplo:
-
+Conteúdo padrão do arquivo `.env`:
 ```env
-SECRET_KEY=sua-chave-secreta
+SECRET_KEY=chave-secreta-de-desenvolvimento-visual-producoes
 DATABASE_URL=sqlite:///database.db
 SESSION_TIMEOUT=30
 DEBUG=True
@@ -261,49 +242,55 @@ ADMIN_USERNAME=projeto.admin
 ADMIN_PASSWORD=mudar@123
 ```
 
----
-
-## ▶️ Executando a Aplicação
-
-No terminal do VS Code execute:
+### 5️⃣ Executar a Aplicação
 
 ```bash
 python app.py
 ```
 
-Se tudo estiver correto, será exibido:
-
+O terminal exibirá a inicialização do servidor de desenvolvimento:
 ```txt
-Running on http://127.0.0.1:5000
+* Running on http://127.0.0.1:5000
+```
+
+Abra o navegador e acesse: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## 🔐 Credenciais Padrão de Primeiro Acesso
+
+O sistema realiza a inicialização automática do banco de dados na primeira execução e cria a conta administrativa padrão:
+
+* **Usuário:** `projeto.admin`
+* **Senha:** `mudar@123`
+
+> ⚠️ **Recomendação:** Em ambientes de produção, altere a senha imediatamente após o primeiro login através do painel de Usuários.
+
+---
+
+## 🧪 Executando os Testes Automatizados
+
+Para executar toda a bateria de testes automatizados do sistema:
+
+```bash
+pytest
+```
+ou utilizando o runner padrão do Python:
+```bash
+python -m unittest discover tests
 ```
 
 ---
 
-## 🌐 Acessando o Sistema
+## ☁️ Deploy em Nuvem (Render)
 
-Abra o navegador e acesse:
-
-```txt
-http://127.0.0.1:5000
-```
-
----
-
-## 🔐 Login Inicial
-
-**Usuário:**
-
-```txt
-projeto.admin
-```
-
-**Senha:**
-
-```txt
-mudar@123
-```
-
-O usuário administrador é criado automaticamente no primeiro acesso.
+A aplicação está configurada para deploy simplificado em plataformas PaaS como o **Render**:
+1. Conectar o repositório GitHub ao Render como um **Web Service**.
+2. **Build Command:** `pip install -r requirements.txt`
+3. **Start Command:** `gunicorn app:app` (ou o comando definido no `Procfile`).
+4. Configurar as variáveis de ambiente (`SECRET_KEY`, `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`) na aba *Environment* do painel do Render.
 
 ---
-> *Este projeto faz parte da grade curricular da UNIVESP e possui fins estritamente educativos e de pesquisa.*
+
+> *Projeto acadêmico desenvolvido para a disciplina de Projeto Integrador II da Universidade Virtual do Estado de São Paulo (UNIVESP), sob orientação docente e com foco em acessibilidade digital e impacto comunitário real.*
+

@@ -2,114 +2,267 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="h5 mb-0">Cadastro de Usuários</h2>
-        </div>
+<section class="container" aria-labelledby="titulo-pagina">
+
+    <!-- Título da página e botão de voltar -->
+    <header class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1 id="titulo-pagina" class="h5 mb-0">
+            Cadastro de Usuários
+        </h1>
+
         <div class="text-end">
-            <a href="{{ url_for('home.index_home') }}" class="btn btn-outline-secondary btn-sm"> <i
-                    class="bi bi-arrow-left-short" aria-hidden="true"></i>Voltar</a>
+
+            <a
+                href="{{ url_for('home.index_home') }}"
+                class="btn btn-outline-secondary btn-sm"
+            >
+                <i class="bi bi-arrow-left-short" aria-hidden="true"></i>
+                Voltar
+            </a>
+
         </div>
-    </div>
 
+    </header>
+
+
+    <!-- Mensagens do sistema -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
 
-    {% for category, message in messages %}
+        {% if messages %}
 
-    <div class="alert alert-{{ category }}" role="alert">
-        {{ message }}
-    </div>
+            {% for category, message in messages %}
 
-    {% endfor %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
 
-    {% endif %}
+            {% endfor %}
+
+        {% endif %}
+
     {% endwith %}
 
-    <div class="card shadow-sm">
+
+    <!-- Formulário para adicionar usuários -->
+    <section class="card shadow-sm mb-4" aria-labelledby="novo-usuario-titulo">
+
         <div class="card-header">
-            Novo usuário
+
+            <h2 id="novo-usuario-titulo" class="h6 mb-0">
+                Novo usuário
+            </h2>
+
         </div>
+
         <div class="card-body">
-            <form action="{{ url_for('usuario.novo_usuario') }}" method="POST" id="form-dados" aria-label="Cadastrar novo usuário">
+
+            <form
+                action="{{ url_for('usuario.novo_usuario') }}"
+                method="POST"
+                id="form-dados"
+                aria-labelledby="novo-usuario-titulo"
+            >
+
                 <div class="row">
+
+                    <!-- Nome de usuário -->
                     <div class="col-md-6 mb-3">
-                        <label for="username" class="form-label">Usuário</label>
+
+                        <label for="username" class="form-label">
+                            Usuário
+                        </label>
+
                         <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i
-                                    class="bi bi-person-fill" aria-hidden="true"></i></span>
-                            <input type="text" id="username" name="username" class="form-control"
-                                value="{{ username or '' }}" required aria-required="true">
+
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-person-fill" aria-hidden="true"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                class="form-control"
+                                value="{{ username or '' }}"
+                                autocomplete="username"
+                                required
+                            >
+
                         </div>
+
                     </div>
+
+
+                    <!-- Senha -->
                     <div class="col-md-6 mb-3">
-                        <label for="senha" class="form-label">Senha</label>
+
+                        <label for="senha" class="form-label">
+                            Senha
+                        </label>
+
                         <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock-fill" aria-hidden="true"></i></span>
-                            <input type="password" id="senha" name="senha" class="form-control border-end-0" required aria-required="true">
-                            <button type="button" class="btn btn-outline-secondary bg-white border-start-0" id="btnToggleSenha"
-                                aria-label="Mostrar ou ocultar senha" aria-pressed="false" onclick="togglePassword()">
-                                <i id="eyeIcon" class="bi bi-eye-slash" aria-hidden="true"></i>
+
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                            </span>
+
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                class="form-control border-end-0"
+                                autocomplete="new-password"
+                                aria-describedby="senha-validacao"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary bg-white border-start-0"
+                                id="btnToggleSenha"
+                                aria-label="Mostrar ou ocultar senha"
+                                aria-pressed="false"
+                                onclick="togglePassword()"
+                            >
+                                <i
+                                    id="eyeIcon"
+                                    class="bi bi-eye-slash"
+                                    aria-hidden="true"
+                                ></i>
                             </button>
+
                         </div>
-                        <small id="senha-validacao" class="text-danger"></small>
+
+                        <small
+                            id="senha-validacao"
+                            class="text-danger"
+                            aria-live="polite"
+                        ></small>
+
                     </div>
+
                 </div>
+
+
+                <!-- Botão para adicionar usuário -->
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary btn-sm">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-sm"
+                    >
                         <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                         Adicionar
                     </button>
+
                 </div>
+
             </form>
+
         </div>
-    </div>
-    <br>
-    <div class="card shadow-sm">
+
+    </section>
+
+
+    <!-- Lista de usuários cadastrados -->
+    <section class="card shadow-sm" aria-labelledby="lista-usuarios-titulo">
+
         <div class="card-header">
-            Lista de Usuários
+
+            <h2 id="lista-usuarios-titulo" class="h6 mb-0">
+                Lista de Usuários
+            </h2>
+
         </div>
+
         <div class="card-body">
+
             <div class="table-responsive">
-                <table class="table table-hover align-middle" aria-label="Tabela de usuários cadastrados">
+
+                <table class="table table-hover align-middle">
+
+                    <caption class="visually-hidden">
+                        Lista de usuários cadastrados e seus respectivos status.
+                    </caption>
+
                     <thead class="table-light">
+
                         <tr>
                             <th scope="col">Usuário</th>
                             <th scope="col" class="text-center">Status</th>
                         </tr>
+
                     </thead>
 
                     <tbody>
+
                         {% for u in usuarios %}
 
                         <tr>
-                            <td>
+
+                            <!-- Nome do usuário -->
+                            <th scope="row" class="fw-normal">
                                 {{ u.username }}
-                            </td>
+                            </th>
+
+                            <!-- Status e ação para ativar ou desativar -->
                             <td class="text-center">
-                                <a href="{{ url_for('usuario.alterar_status', id=u.id) }}" class="text-decoration-none"
+
+                                <a
+                                    href="{{ url_for('usuario.alterar_status', id=u.id) }}"
+                                    class="text-decoration-none"
                                     title="{% if u.status %}Desativar usuário {{ u.username }}{% else %}Ativar usuário {{ u.username }}{% endif %}"
-                                    aria-label="{% if u.status %}Desativar usuário {{ u.username }}{% else %}Ativar usuário {{ u.username }}{% endif %}">
+                                    aria-label="{% if u.status %}Desativar usuário {{ u.username }}{% else %}Ativar usuário {{ u.username }}{% endif %}"
+                                >
+
                                     {% if u.status %}
-                                    <i class="bi bi-check-circle-fill text-success fs-5 status-icon" aria-hidden="true"> </i> Ativo
+
+                                        <i
+                                            class="bi bi-check-circle-fill text-success fs-5 status-icon"
+                                            aria-hidden="true"
+                                        ></i>
+
+                                        Ativo
+
                                     {% else %}
-                                    <i class="bi bi-x-circle-fill text-danger fs-5 status-icon" aria-hidden="true"> </i> Inativo
+
+                                        <i
+                                            class="bi bi-x-circle-fill text-danger fs-5 status-icon"
+                                            aria-hidden="true"
+                                        ></i>
+
+                                        Inativo
+
                                     {% endif %}
+
                                 </a>
+
                             </td>
+
                         </tr>
 
                         {% endfor %}
+
                     </tbody>
+
                 </table>
+
             </div>
+
         </div>
-    </div>
-</div>
+
+    </section>
+
+</section>
+
 {% endblock %}
 
+
 {% block scripts %}
+
 <script src="{{ url_for('static', filename='js/validar-senha.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+
 {% endblock %}

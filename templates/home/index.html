@@ -2,23 +2,41 @@
 
 {% block content %}
 
-<div style="padding: 3vh 5vh;">
+<section
+    aria-labelledby="titulo-pagina"
+    style="padding: 3vh 5vh;"
+>
+
+    <!-- Título principal da página -->
+    <h1 id="titulo-pagina" class="h5 mb-3">
+        Bem-vindo(a)!
+    </h1>
+
+
+    <!-- Mensagens do sistema -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
 
-    {% for category, message in messages %}
+        {% if messages %}
 
-    <div class="alert alert-{{ category }}">
-        {{ message }}
-    </div>
+            {% for category, message in messages %}
 
-    {% endfor %}
+                <div
+                    class="alert alert-{{ category }}"
+                    role="alert"
+                >
+                    {{ message }}
+                </div>
 
-    {% endif %}
+            {% endfor %}
+
+        {% endif %}
+
     {% endwith %}
-    
-    <h5 class="mb-0">Bem-vindo(a)!</h5>
-    <br />
+
+
+    <!-- Data atual -->
     <p>{{ hoje }}</p>
-</div>
+
+</section>
+
 {% endblock %}

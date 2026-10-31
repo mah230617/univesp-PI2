@@ -1,7 +1,20 @@
 // Controle de Acessibilidade (Fonte, Contraste e VLibras)
 document.addEventListener('DOMContentLoaded', function () {
-    const fontSizes = ['', 'font-sm', 'font-lg', 'font-xl'];
-    let currentFontIndex = 0;
+    const fontSizes = ['font-sm', '', 'font-lg', 'font-xl'];
+    let currentFontIndex = fontSizes.indexOf(''); // Índice 1 (normal)
+
+    function applyFontClass(newClass) {
+        fontSizes.forEach(cls => {
+            if (cls) {
+                document.documentElement.classList.remove(cls);
+                document.body.classList.remove(cls);
+            }
+        });
+        if (newClass) {
+            document.documentElement.classList.add(newClass);
+            document.body.classList.add(newClass);
+        }
+    }
 
     // Carregar preferências salvas no localStorage
     if (localStorage.getItem('highContrast') === 'true') {
@@ -12,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const savedFont = localStorage.getItem('fontClass');
     if (savedFont && fontSizes.includes(savedFont)) {
-        document.body.classList.add(savedFont);
         currentFontIndex = fontSizes.indexOf(savedFont);
+        applyFontClass(savedFont);
     }
 
     // Botão de Alto Contraste
@@ -26,42 +39,46 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Aumentar Fonte
+    // Aumentar Fonte (A+)
     const btnIncreaseFont = document.getElementById('btn-font-increase');
     if (btnIncreaseFont) {
         btnIncreaseFont.addEventListener('click', function () {
-            fontSizes.forEach(cls => cls && document.body.classList.remove(cls));
             if (currentFontIndex < fontSizes.length - 1) {
                 currentFontIndex++;
+                const newClass = fontSizes[currentFontIndex];
+                applyFontClass(newClass);
+                if (newClass) {
+                    localStorage.setItem('fontClass', newClass);
+                } else {
+                    localStorage.removeItem('fontClass');
+                }
             }
-            if (fontSizes[currentFontIndex]) {
-                document.body.classList.add(fontSizes[currentFontIndex]);
-            }
-            localStorage.setItem('fontClass', fontSizes[currentFontIndex]);
         });
     }
 
-    // Diminuir Fonte
+    // Diminuir Fonte (A-)
     const btnDecreaseFont = document.getElementById('btn-font-decrease');
     if (btnDecreaseFont) {
         btnDecreaseFont.addEventListener('click', function () {
-            fontSizes.forEach(cls => cls && document.body.classList.remove(cls));
             if (currentFontIndex > 0) {
                 currentFontIndex--;
+                const newClass = fontSizes[currentFontIndex];
+                applyFontClass(newClass);
+                if (newClass) {
+                    localStorage.setItem('fontClass', newClass);
+                } else {
+                    localStorage.removeItem('fontClass');
+                }
             }
-            if (fontSizes[currentFontIndex]) {
-                document.body.classList.add(fontSizes[currentFontIndex]);
-            }
-            localStorage.setItem('fontClass', fontSizes[currentFontIndex]);
         });
     }
 
-    // Resetar Fonte
+    // Resetar Fonte (A)
     const btnResetFont = document.getElementById('btn-font-reset');
     if (btnResetFont) {
         btnResetFont.addEventListener('click', function () {
-            fontSizes.forEach(cls => cls && document.body.classList.remove(cls));
-            currentFontIndex = 0;
+            currentFontIndex = fontSizes.indexOf('');
+            applyFontClass('');
             localStorage.removeItem('fontClass');
         });
     }

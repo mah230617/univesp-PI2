@@ -17,13 +17,33 @@ function aplicarMascaras(campos) {
 }
 
 function aplicarMascaraTelefone(input) {
+
     if (!input) return;
 
-    const valor = input.value.replace(/\D/g, '');
-    const mascara = valor.length <= 10 ? '(99) 9999-9999' : '(99) 99999-9999';
 
-    VMasker(input).unMask();
-    VMasker(input).maskPattern(mascara);
+    let valor = input.value.replace(/\D/g, "");
 
-    input.value = VMasker.toPattern(valor, mascara);
+
+    if (valor.length > 11) {
+        valor = valor.substring(0, 11);
+    }
+
+
+    if (valor.length <= 10) {
+
+        input.value = valor.replace(
+            /^(\d{2})(\d{4})(\d{0,4})$/,
+            "($1) $2-$3"
+        );
+
+
+    } else {
+
+        input.value = valor.replace(
+            /^(\d{2})(\d{5})(\d{0,4})$/,
+            "($1) $2-$3"
+        );
+
+    }
+
 }

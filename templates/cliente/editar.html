@@ -2,133 +2,394 @@
 
 {% block content %}
 
-<div class="container">
+<section class="container" aria-labelledby="titulo-pagina">
+
+    <!-- Título da página e botão de voltar -->
     <div class="d-flex justify-content-between align-items-center mb-4">
+
         <div>
-            <h2 class="h5 mb-0">Editar Cadastro do Cliente</h2>
+            <h1 id="titulo-pagina" class="h5 mb-0">
+                Editar Cadastro do Cliente
+            </h1>
         </div>
+
         <div class="text-end">
-            <a href="{{ url_for('cliente.listar_clientes') }}" class="btn btn-outline-secondary btn-sm"> <i
-                    class="bi bi-arrow-left-short" aria-hidden="true"></i>Voltar</a>
+            <a
+                href="{{ url_for('cliente.listar_clientes') }}"
+                class="btn btn-outline-secondary btn-sm"
+            >
+                <i class="bi bi-arrow-left-short" aria-hidden="true"></i>
+                Voltar
+            </a>
         </div>
+
     </div>
 
+
+    <!-- Mensagens do sistema -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
 
-    {% for category, message in messages %}
+        {% if messages %}
 
-    <div class="alert alert-{{ category }}" role="alert">
-        {{ message }}
-    </div>
+            {% for category, message in messages %}
 
-    {% endfor %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
 
-    {% endif %}
+            {% endfor %}
+
+        {% endif %}
+
     {% endwith %}
 
+
+    <!-- Dados do cliente -->
     <div class="card shadow-sm">
+
         <div class="card-header">
-            Dados do Cliente
+            <h2 id="dados-cliente-titulo" class="h6 mb-0">
+                Dados do Cliente
+            </h2>
         </div>
+
         <div class="card-body">
-            <form action="{{ url_for('cliente.atualizar_cliente', id=cliente.id) }}" method="POST" id="form-dados">
+
+            <form
+                action="{{ url_for('cliente.atualizar_cliente', id=cliente.id) }}"
+                method="POST"
+                id="form-dados"
+                aria-labelledby="dados-cliente-titulo"
+            >
+
+                <p id="campos-obrigatorios" class="form-text mb-3">
+                    Os campos marcados com
+                    <span aria-hidden="true">*</span>
+                    são obrigatórios.
+                </p>
+
+
+                <!-- Nome -->
                 <div class="row">
+
                     <div class="col-md-12 mb-3">
-                        <label for="nome" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Nome / Razão Social</label>
-                        <input type="text" name="nome" id="nome" class="form-control" value="{{ cliente.nome }}"
-                            required aria-required="true">
+
+                        <label for="nome" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Nome / Razão Social
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            id="nome"
+                            class="form-control"
+                            value="{{ cliente.nome }}"
+                            autocomplete="name"
+                            required
+                        >
+
                     </div>
+
                 </div>
+
+
+                <!-- Documento e data de nascimento -->
                 <div class="row">
+
                     <div class="col-md-6 mb-3">
-                        <label for="cpfcnpj" class="form-label"><span class="text-danger" aria-hidden="true">*</span> CPF / CNPJ</label>
-                        <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control"
-                            value="{{ cliente.cpfcnpj }}" required aria-required="true">
-                        <small id="cpfcnpj-retorno" class="text-danger"> </small>
+
+                        <label for="cpfcnpj" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            CPF / CNPJ
+                        </label>
+
+                        <input
+                            type="text"
+                            name="cpfcnpj"
+                            id="cpfcnpj"
+                            class="form-control"
+                            value="{{ cliente.cpfcnpj }}"
+                            aria-describedby="cpfcnpj-retorno"
+                            required
+                        >
+
+                        <small
+                            id="cpfcnpj-retorno"
+                            class="text-danger"
+                            aria-live="polite"
+                        ></small>
+
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <label for="data_nascimento" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Data de Nascimento</label>
-                        <input type="text" id="data_nascimento" name="data_nascimento" class="form-control"
+
+                        <label for="data_nascimento" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Data de Nascimento
+                        </label>
+
+                        <input
+                            type="text"
+                            id="data_nascimento"
+                            name="data_nascimento"
+                            class="form-control"
                             placeholder="dd/mm/aaaa"
                             value="{{ cliente.data_nascimento.strftime('%d/%m/%Y') if cliente.data_nascimento else '' }}"
-                            required aria-required="true">
+                            autocomplete="bday"
+                            aria-describedby="data-nascimento-ajuda"
+                            required
+                        >
+
+                        <small
+                            id="data-nascimento-ajuda"
+                            class="form-text"
+                        >
+                            Informe a data no formato dia/mês/ano.
+                        </small>
+
                     </div>
+
                 </div>
+
+
+                <!-- Contato -->
                 <div class="row">
+
                     <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label"><span class="text-danger" aria-hidden="true">*</span> E-mail</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ cliente.email }}"
-                            required aria-required="true">
+
+                        <label for="email" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            value="{{ cliente.email }}"
+                            autocomplete="email"
+                            required
+                        >
+
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <label for="telefone" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Telefone</label>
-                        <input type="text" name="telefone" id="telefone" class="form-control"
-                            value="{{ cliente.telefone }}" required aria-required="true">
+
+                        <label for="telefone" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Telefone
+                        </label>
+
+                        <input
+                            type="text"
+                            name="telefone"
+                            id="telefone"
+                            class="form-control"
+                            value="{{ cliente.telefone }}"
+                            autocomplete="tel"
+                            required
+                        >
+
                     </div>
+
                 </div>
+
+
+                <!-- CEP e logradouro -->
                 <div class="row">
+
                     <div class="col-md-3 mb-3">
-                        <label for="cep" class="form-label"><span class="text-danger" aria-hidden="true">*</span> CEP</label>
-                        <input type="text" name="cep" id="cep" class="form-control"
-                            value="{{ cliente.enderecos[0].cep if cliente.enderecos else '' }}" required aria-required="true">
+
+                        <label for="cep" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            CEP
+                        </label>
+
+                        <input
+                            type="text"
+                            name="cep"
+                            id="cep"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].cep if cliente.enderecos else '' }}"
+                            autocomplete="postal-code"
+                            required
+                        >
+
                     </div>
+
                     <div class="col-md-9 mb-3">
-                        <label for="logradouro" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Logradouro</label>
-                        <input type="text" name="logradouro" id="logradouro" class="form-control"
-                            value="{{ cliente.enderecos[0].logradouro if cliente.enderecos else '' }}" required aria-required="true">
+
+                        <label for="logradouro" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Logradouro
+                        </label>
+
+                        <input
+                            type="text"
+                            name="logradouro"
+                            id="logradouro"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].logradouro if cliente.enderecos else '' }}"
+                            autocomplete="address-line1"
+                            required
+                        >
+
                     </div>
+
                 </div>
+
+
+                <!-- Bairro, número e complemento -->
                 <div class="row">
+
                     <div class="col-md-6 mb-3">
-                        <label for="bairro" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Bairro</label>
-                        <input type="text" name="bairro" id="bairro" class="form-control"
-                            value="{{ cliente.enderecos[0].bairro if cliente.enderecos else '' }}" required aria-required="true">
+
+                        <label for="bairro" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Bairro
+                        </label>
+
+                        <input
+                            type="text"
+                            name="bairro"
+                            id="bairro"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].bairro if cliente.enderecos else '' }}"
+                            required
+                        >
+
                     </div>
+
                     <div class="col-md-3 mb-3">
-                        <label for="numero" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Número</label>
-                        <input type="text" name="numero" id="numero" class="form-control"
-                            value="{{ cliente.enderecos[0].numero if cliente.enderecos else '' }}" required aria-required="true">
+
+                        <label for="numero" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Número
+                        </label>
+
+                        <input
+                            type="text"
+                            name="numero"
+                            id="numero"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].numero if cliente.enderecos else '' }}"
+                            required
+                        >
+
                     </div>
+
                     <div class="col-md-3 mb-3">
-                        <label for="complemento" class="form-label">Complemento</label>
-                        <input type="text" name="complemento" id="complemento" class="form-control"
-                            value="{{ cliente.enderecos[0].complemento if cliente.enderecos else '' }}">
+
+                        <label for="complemento" class="form-label">
+                            Complemento
+                        </label>
+
+                        <input
+                            type="text"
+                            name="complemento"
+                            id="complemento"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].complemento if cliente.enderecos else '' }}"
+                            autocomplete="address-line2"
+                        >
+
                     </div>
+
                 </div>
+
+
+                <!-- Cidade e estado -->
                 <div class="row">
+
                     <div class="col-md-9 mb-3">
-                        <label for="cidade" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Cidade</label>
-                        <input type="text" name="cidade" id="cidade" class="form-control"
-                            value="{{ cliente.enderecos[0].cidade if cliente.enderecos else '' }}" required aria-required="true">
+
+                        <label for="cidade" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Cidade
+                        </label>
+
+                        <input
+                            type="text"
+                            name="cidade"
+                            id="cidade"
+                            class="form-control"
+                            value="{{ cliente.enderecos[0].cidade if cliente.enderecos else '' }}"
+                            autocomplete="address-level2"
+                            required
+                        >
+
                     </div>
+
                     <div class="col-md-3 mb-3">
-                        <label for="estado" class="form-label"><span class="text-danger" aria-hidden="true">*</span> Estado</label>
-                        <select id="estado" name="estado" class="form-select" required aria-required="true">
+
+                        <label for="estado" class="form-label">
+                            <span class="text-danger" aria-hidden="true">*</span>
+                            Estado
+                        </label>
+
+                        <select
+                            id="estado"
+                            name="estado"
+                            class="form-select"
+                            autocomplete="address-level1"
+                            required
+                        >
+
                             <option value="">Selecione</option>
+
                             {% for sigla, nome in estados %}
-                            <option value="{{ sigla }}" {% if cliente.enderecos and cliente.enderecos[0].estado==sigla
-                                %} selected {% endif %}>
-                                {{ sigla }}
-                            </option>
+
+                                <option
+                                    value="{{ sigla }}"
+                                    {% if cliente.enderecos and cliente.enderecos[0].estado == sigla %}selected{% endif %}
+                                >
+                                    {{ sigla }}
+                                </option>
+
                             {% endfor %}
+
                         </select>
+
                     </div>
+
                 </div>
+
+
+                <!-- Salvar alterações -->
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-sm"
+                    >
+                        Salvar Alterações
+                    </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
-</div>
+
+</section>
 
 {% endblock %}
 
+
 {% block scripts %}
+
 <script src="{{ url_for('static', filename='js/documento.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/cep.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/masks.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+
 <script src="{{ url_for('static', filename='js/datepicker.js') }}"></script>
+
 {% endblock %}

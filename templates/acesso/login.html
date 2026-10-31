@@ -1,43 +1,115 @@
 {% extends "layout/index.html" %}
 
 {% block content %}
-<div>
+
+<section aria-labelledby="login-title">
+
     <div class="login-header">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" class="login-logo" alt="Logo Visual Produções">
+
+        <img
+            src="{{ url_for('static', filename='img/logo.png') }}"
+            class="login-logo"
+            alt="Logo Visual Produções"
+        >
+
+        <h1 id="login-title" class="h4 mb-3">
+            Entrar no sistema
+        </h1>
+
     </div>
 
     {% if erro %}
 
-    <div class="alert alert-danger" role="alert">{{ erro }}</div>
+    <div class="alert alert-danger" role="alert">
+        {{ erro }}
+    </div>
 
     {% endif %}
 
-    <form method="POST" aria-label="Formulário de Login">
+    <form method="POST" aria-labelledby="login-title">
+
         <div class="col-md-12 mb-3">
-            <label for="username" class="form-label visually-hidden">Usuário</label>
+
+            <label for="username" class="form-label visually-hidden">
+                Usuário
+            </label>
+
             <div class="input-group">
-                <span class="input-group-text bg-white border-end-0"><i class="bi bi-person-fill" aria-hidden="true"></i></span>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Usuário"
-                    value="{{ username or '' }}" required aria-required="true" aria-label="Usuário">
+
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-person-fill" aria-hidden="true"></i>
+                </span>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-control"
+                    placeholder="Usuário"
+                    value="{{ username or '' }}"
+                    autocomplete="username"
+                    required
+                >
+
             </div>
+
         </div>
+
         <div class="col-md-12 mb-3">
-            <label for="senha" class="form-label visually-hidden">Senha</label>
+
+            <label for="senha" class="form-label visually-hidden">
+                Senha
+            </label>
+
             <div class="input-group">
-                <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock-fill" aria-hidden="true"></i></span>
-                <input type="password" id="senha" name="senha" class="form-control border-end-0" placeholder="Senha"
-                    required aria-required="true" aria-label="Senha">
-                <button type="button" class="btn btn-outline-secondary bg-white border-start-0" id="btnToggleSenha"
-                    aria-label="Mostrar ou ocultar senha" aria-pressed="false" onclick="togglePassword()">
-                    <i id="eyeIcon" class="bi bi-eye-slash" aria-hidden="true"></i>
+
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                </span>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    class="form-control border-end-0"
+                    placeholder="Senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary bg-white border-start-0"
+                    id="btnToggleSenha"
+                    aria-label="Mostrar ou ocultar senha"
+                    aria-pressed="false"
+                    onclick="togglePassword()"
+                >
+                    <i
+                        id="eyeIcon"
+                        class="bi bi-eye-slash"
+                        aria-hidden="true"
+                    ></i>
                 </button>
+
             </div>
+
         </div>
 
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Acessar</button>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%;"
+            >
+                Acessar
+            </button>
+
         </div>
+
     </form>
-</div>
+
+</section>
 
 {% endblock %}
