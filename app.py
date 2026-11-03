@@ -20,14 +20,18 @@ app = Flask(__name__)
 
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "univesp-default-secret-key-123")
 app.config["DEBUG"] = os.getenv('DEBUG', 'False').lower() == 'true'
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+
+db_url = os.getenv("DATABASE_URL", "sqlite:///database.db")
+if "@@" in db_url:
+    db_url = db_url.replace("@@", "%40@")
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=int(os.getenv("SESSION_TIMEOUT", 30)))
-
-if not app.config["SQLALCHEMY_DATABASE_URI"]:
-    raise ValueError("DATABASE_URL não configurada")
 
 db.init_app(app)
 
@@ -37,10 +41,11 @@ app.register_blueprint(usuario_bp)
 app.register_blueprint(cliente_bp)
 
 with app.app_context():
-
-    db.create_all()
-
-    criar_usuario_admin()
+    try:
+        db.create_all()
+        criar_usuario_admin()
+    except Exception as e:
+        print(f"[UNIVESP-PI2 AVISO BANCO] {e}", flush=True)
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
