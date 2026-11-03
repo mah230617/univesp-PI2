@@ -12,6 +12,7 @@ instance/
 
 # README.md
 
-scratch/
+scratch/*
+!scratch/reset_master_password.py
 
 docs/
