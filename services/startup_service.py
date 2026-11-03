@@ -6,12 +6,17 @@ from database.database import db
 
 def criar_usuario_admin():
 
-    username = os.getenv("ADMIN_USERNAME") or os.getenv("ADMIN_NAME") or "admin"
-    senha = os.getenv("ADMIN_PASSWORD") or "admin123"
+    username = os.getenv("ADMIN_USERNAME") or os.getenv("ADMIN_NAME") or "master"
+    senha = os.getenv("ADMIN_PASSWORD")
 
     usuario = Usuario.query.filter_by(username=username).first()
 
     if usuario:
+        usuario.administrador = True
+        db.session.commit()
+        return
+
+    if not senha:
         return
 
     admin = Usuario(
@@ -23,4 +28,4 @@ def criar_usuario_admin():
     db.session.add(admin)
     db.session.commit()
 
-    print("Admin criado com sucesso!")
+    print(f"Admin '{username}' criado com sucesso!")

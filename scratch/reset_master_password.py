@@ -47,7 +47,7 @@ def reset_password(new_password: str, username: str = None):
 
         if not user:
             print(f"[!] Nenhum usuário existente encontrado. Criando novo administrador...")
-            target_user = username or os.getenv("ADMIN_USERNAME", "admin")
+            target_user = username or os.getenv("ADMIN_USERNAME", "master")
             novo_admin = Usuario(
                 username=target_user,
                 senha=generate_password_hash(new_password),
@@ -67,8 +67,8 @@ def reset_password(new_password: str, username: str = None):
 
 
 if __name__ == "__main__":
-    pwd = sys.argv[1] if len(sys.argv) > 1 else None
-    usr = sys.argv[2] if len(sys.argv) > 2 else None
+    pwd = sys.argv[1] if len(sys.argv) > 1 else os.getenv("ADMIN_PASSWORD")
+    usr = sys.argv[2] if len(sys.argv) > 2 else os.getenv("ADMIN_USERNAME", "master")
 
     if not pwd:
         try:
@@ -83,3 +83,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     reset_password(pwd, usr)
+

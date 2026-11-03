@@ -9,8 +9,9 @@ from routes.home_routes import home_bp
 from models.usuario import Usuario
 from models.cliente import Cliente
 from models.endereco import Endereco
+from models.audit import AccessSession, SystemLog
 from services.startup_service import criar_usuario_admin
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from utils.formatters import formatar_cpf_cnpj, formatar_telefone, formatar_cep, formatar_data
 import os
 
@@ -62,6 +63,15 @@ def inject_user():
 def renovar_sessao():
     session.permanent = True
     session.modified = True
+    sid = session.get("access_session_id")
+    if sid:
+        try:
+            acc = db.session.get(AccessSession, sid)
+            if acc and acc.logout_at is None:
+                acc.last_seen = datetime.now(timezone.utc)
+                db.session.commit()
+        except Exception:
+            db.session.rollback()
 
 app.jinja_env.globals.update(
     formatar_cpf_cnpj= formatar_cpf_cnpj,
