@@ -64,12 +64,22 @@ def renovar_sessao():
     session.permanent = True
     session.modified = True
     sid = session.get("access_session_id")
-    if sid:
+    uname = session.get("username")
+    if uname:
         try:
-            acc = db.session.get(AccessSession, sid)
-            if acc and acc.logout_at is None:
-                acc.last_seen = datetime.now(timezone.utc)
+            now = datetime.now(timezone.utc)
+            if sid:
+                acc = db.session.get(AccessSession, sid)
+                if acc and acc.logout_at is None:
+                    acc.last_seen = now
+                    db.session.commit()
+            else:
+                from flask import request
+                ip = request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip()
+                acc = AccessSession(username=uname, ip_address=ip, login_at=now, last_seen=now)
+                db.session.add(acc)
                 db.session.commit()
+                session["access_session_id"] = acc.id
         except Exception:
             db.session.rollback()
 
