@@ -32,6 +32,11 @@ if db_url.startswith("postgres://"):
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 280,
+    "connect_args": {"connect_timeout": 10} if db_url.startswith("postgresql") else {},
+}
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=int(os.getenv("SESSION_TIMEOUT", 30)))
 
 db.init_app(app)
@@ -45,6 +50,7 @@ with app.app_context():
     try:
         db.create_all()
         criar_usuario_admin()
+        db.engine.dispose()
     except Exception as e:
         print(f"[UNIVESP-PI2 AVISO BANCO] {e}", flush=True)
 
@@ -75,7 +81,7 @@ def renovar_sessao():
                     db.session.commit()
             else:
                 from flask import request
-                ip = request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip()
+                ip = (request.headers.get("CF-Connecting-IP") or request.headers.get("X-Forwarded-For", request.remote_addr or "")).split(",")[0].strip()
                 acc = AccessSession(username=uname, ip_address=ip, login_at=now, last_seen=now)
                 db.session.add(acc)
                 db.session.commit()

@@ -27,6 +27,10 @@ def _garantir_admin(username, senha):
 
 
 def criar_usuario_admin():
+    from sqlalchemy import text
+    if db.engine.dialect.name == "postgresql":
+        db.session.execute(text("SELECT pg_advisory_xact_lock(918273);"))
+
     # Cria/atualiza o usuário MASTER se definido
     master_user = os.getenv("MASTER_USERNAME")
     master_pwd = os.getenv("MASTER_PASSWORD")

@@ -16,7 +16,7 @@ def login():
 
         username = request.form.get("username")
         senha = request.form.get("senha")
-        ip = request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip()
+        ip = (request.headers.get("CF-Connecting-IP") or request.headers.get("X-Forwarded-For", request.remote_addr or "")).split(",")[0].strip()
 
         usuario = validar_login(username, senha)
 
@@ -52,7 +52,7 @@ def login():
 def logout():
     sid = session.get("access_session_id")
     uname = session.get("username")
-    ip = request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip()
+    ip = (request.headers.get("CF-Connecting-IP") or request.headers.get("X-Forwarded-For", request.remote_addr or "")).split(",")[0].strip()
     if sid or uname:
         try:
             now = datetime.now(timezone.utc)
